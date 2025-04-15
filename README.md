@@ -1,9 +1,11 @@
 # StudyBuddy AI Assistant
 
 ## Project Overview
+
 StudyBuddy is a personal AI assistant designed to help students plan their study sessions, organize academic tasks, and provide learning resources. The application leverages AI to offer personalized study recommendations, answer academic questions, and help manage study schedules.
 
 ## Features
+
 - Personalized study session planning
 - Academic resource recommendations
 - Question answering for various subjects
@@ -14,6 +16,7 @@ StudyBuddy is a personal AI assistant designed to help students plan their study
 ## Technologies Used
 
 ### Frontend
+
 - **React**: Created with Create React App
 - **JavaScript**: Core programming language for frontend
 - **React Router**: For navigation between components
@@ -22,6 +25,7 @@ StudyBuddy is a personal AI assistant designed to help students plan their study
 - **Chart.js**: For visualizing study progress and statistics
 
 ### Backend
+
 - **Python**: Core programming language for backend
 - **Flask**: Lightweight web framework
 - **OpenAI API**: For AI-powered features
@@ -29,6 +33,7 @@ StudyBuddy is a personal AI assistant designed to help students plan their study
 - **RESTful API**: For communication between frontend and backend
 
 ### Development Tools
+
 - **Git/GitHub**: Version control and project management
 - **VS Code**: Code editor
 - **Postman**: API testing
@@ -37,6 +42,7 @@ StudyBuddy is a personal AI assistant designed to help students plan their study
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js (v18.0 or higher)
 - npm (v8.0 or higher)
 - Python (v3.9 or higher)
@@ -46,6 +52,7 @@ StudyBuddy is a personal AI assistant designed to help students plan their study
 ### Installation
 
 #### Frontend Setup
+
 ```bash
 # Clone the repository
 git clone https://github.com/yourusername/studybuddy-ai.git
@@ -59,6 +66,7 @@ npm start
 ```
 
 #### Backend Setup
+
 ```bash
 # Navigate to backend directory
 cd ../backend
@@ -78,6 +86,7 @@ python app.py
 ```
 
 ## Project Structure
+
 ```
 studybuddy-ai/
 ├── frontend/                 # React frontend
@@ -105,15 +114,18 @@ studybuddy-ai/
 ```
 
 ## Contribution Guidelines
+
 - Create a new branch for each feature or bug fix
 - Write clear, descriptive commit messages
 - Keep code clean and well-documented
 - Test thoroughly before submitting pull requests
 
 ## License
+
 MIT License
 
 ## Acknowledgements
+
 - OpenAI for providing the API
 - React team for the amazing frontend library
 - All contributors who participate in this project
