@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+from services.ai_service import AIService
 
 study_bp = Blueprint('study', __name__)
 
@@ -13,27 +14,11 @@ def create_study_plan():
             'message': 'Missing required fields'
         }), 400
     
-    study_plan = {
-        'subject': data.get('subject'),
-        'duration': data.get('duration', '1 hour'),
-        'sections': [
-            {
-                'topic': f"Introduction to {data.get('subject')}",
-                'duration': '15 minutes',
-                'activities': ['Review key concepts', 'Read introductory material']
-            },
-            {
-                'topic': f"Core principles of {data.get('subject')}",
-                'duration': '30 minutes',
-                'activities': ['Practice problems', 'Note important formulas/concepts']
-            },
-            {
-                'topic': 'Review and synthesis',
-                'duration': '15 minutes',
-                'activities': ['Summarize what you learned', 'Create connections with previous knowledge']
-            }
-        ]
-    }
+    subject = data.get('subject')
+    duration = data.get('duration', '1 hour')
+    topics = data.get('topics', [])
+    
+    study_plan = AIService.generate_study_plan(subject, duration, topics)
     
     return jsonify({
         'status': 'success',
