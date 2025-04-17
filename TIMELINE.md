@@ -10,12 +10,12 @@
 | Set up project structure                  | Day 1    |                | ✅       |
 | Initial commit to GitHub                  | Day 1    |                | ✅       |
 | **Day 2: Backend Foundation**             | Day 2    |                |          |
-| Set up Python Flask environment           | Day 2    |                | 🔲       |
-| Create basic Flask API structure          | Day 2    |                | 🔲       |
-| Implement basic route handling            | Day 2    |                | 🔲       |
-| Set up OpenAI API integration             | Day 2    |                | 🔲       |
+| Set up Python Flask environment           | Day 2    |                | ✅       |
+| Create basic Flask API structure          | Day 2    |                | ✅       |
+| Implement basic route handling            | Day 2    |                | ✅       |
+| Set up OpenAI API integration             | Day 2    |                | ✅       |
 | **Day 3: User Interface Design**          | Day 3    |                |          |
-| Design basic UI wireframes                | Day 3    |                | 🔲       |
+| Design basic UI wireframes                | Day 3    |                | ✅       |
 | Set up Material UI in React               | Day 3    |                | 🔲       |
 | Create navigation components              | Day 3    |                | 🔲       |
 | Implement responsive layout               | Day 3    |                | 🔲       |
