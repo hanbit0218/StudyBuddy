@@ -20,8 +20,8 @@
 | Create navigation components              | Day 3    |                | ✅       |
 | Implement responsive layout               | Day 3    |                | ✅       |
 | **Day 4: Frontend Components**            | Day 4    |                |          |
-| Create chat interface component           | Day 4    |                | 🔄       |
-| Implement study session form              | Day 4    |                | 🔄       |
+| Create chat interface component           | Day 4    |                | ✅       |
+| Implement study session form              | Day 4    |                | ✅       |
 | Build dashboard layout                    | Day 4    |                | 🔄       |
 | Set up context providers                  | Day 4    |                | 🔄       |
 | **Day 5: API Integration**                | Day 5    |                |          |

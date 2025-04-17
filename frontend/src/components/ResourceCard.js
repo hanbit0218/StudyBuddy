@@ -16,6 +16,17 @@ import {
   OpenInNew as OpenInNewIcon
 } from '@mui/icons-material';
 
+/**
+ * ResourceCard component for displaying study resources
+ * 
+ * @param {Object} props - Component props
+ * @param {string} props.title - Resource title
+ * @param {string} props.description - Resource description
+ * @param {string} props.type - Resource type ('article', 'video', 'exercises', etc.)
+ * @param {string} props.url - Resource URL
+ * @param {string} props.imageUrl - Resource image URL
+ * @param {Function} props.onSave - Function to call when saving the resource
+ */
 function ResourceCard({ 
   title, 
   description, 
@@ -24,7 +35,6 @@ function ResourceCard({
   imageUrl, 
   onSave = () => {} 
 }) {
-
   const getTypeIcon = () => {
     switch (type) {
       case 'article':

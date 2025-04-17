@@ -7,6 +7,14 @@ import {
 } from '@mui/material';
 import { Person as PersonIcon, SmartToy as BotIcon } from '@mui/icons-material';
 
+/**
+ * ChatMessage component for displaying a single message in the chat interface
+ * 
+ * @param {Object} props - Component props
+ * @param {string} props.text - The message text content
+ * @param {string} props.sender - The sender of the message ('user' or 'bot')
+ * @param {boolean} props.isLoading - Optional loading state for the message
+ */
 function ChatMessage({ text, sender, isLoading = false }) {
   const isUser = sender === 'user';
   
