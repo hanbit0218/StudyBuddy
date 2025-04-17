@@ -16,9 +16,9 @@
 | Set up OpenAI API integration             | Day 2    |                | ✅       |
 | **Day 3: User Interface Design**          | Day 3    |                |          |
 | Design basic UI wireframes                | Day 3    |                | ✅       |
-| Set up Material UI in React               | Day 3    |                | 🔲       |
-| Create navigation components              | Day 3    |                | 🔲       |
-| Implement responsive layout               | Day 3    |                | 🔲       |
+| Set up Material UI in React               | Day 3    |                | ✅       |
+| Create navigation components              | Day 3    |                | ✅       |
+| Implement responsive layout               | Day 3    |                | ✅       |
 | **Day 4: Frontend Components**            | Day 4    |                |          |
 | Create chat interface component           | Day 4    |                | 🔲       |
 | Implement study session form              | Day 4    |                | 🔲       |
