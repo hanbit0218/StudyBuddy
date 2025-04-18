@@ -2,33 +2,27 @@ import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { 
   Box, 
-  CssBaseline, 
-  Drawer, 
   AppBar, 
   Toolbar, 
-  List, 
   Typography, 
-  Divider, 
   IconButton, 
   Container, 
-  ListItem, 
-  ListItemIcon, 
-  ListItemText, 
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
   ListItemButton,
+  Divider,
   useMediaQuery,
-  useTheme,
-  Tooltip
+  useTheme
 } from '@mui/material';
 import {
   Menu as MenuIcon,
-  ChevronLeft as ChevronLeftIcon,
   Home as HomeIcon,
   Chat as ChatIcon,
   Schedule as ScheduleIcon,
   LibraryBooks as ResourcesIcon,
-  Settings as SettingsIcon,
-  Notifications as NotificationsIcon,
-  AccountCircle as AccountIcon
 } from '@mui/icons-material';
 import { Link as RouterLink } from 'react-router-dom';
 import HomePage from '../pages/HomePage';
@@ -37,16 +31,16 @@ import StudyPlanPage from '../pages/StudyPlanPage';
 import ResourcesPage from '../pages/ResourcesPage';
 
 // Drawer width constant
-const drawerWidth = 240;
+const drawerWidth = 250;
 
 function MainLayout() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const [open, setOpen] = useState(!isMobile);
+  const [drawerOpen, setDrawerOpen] = useState(!isMobile);
 
   // Toggle drawer
   const toggleDrawer = () => {
-    setOpen(!open);
+    setDrawerOpen(!drawerOpen);
   };
 
   // Navigation items
@@ -57,112 +51,34 @@ function MainLayout() {
     { text: 'Resources', icon: <ResourcesIcon />, path: '/resources' },
   ];
 
-  // Drawer content
-  const drawerContent = (
-    <>
-      <Toolbar
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'flex-end',
-          px: [1],
-        }}
-      >
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1, ml: 1 }}>
-          StudyBuddy
-        </Typography>
-        <IconButton onClick={toggleDrawer}>
-          <ChevronLeftIcon />
-        </IconButton>
-      </Toolbar>
-      <Divider />
-      <List component="nav">
-        {navItems.map((item) => (
-          <ListItem key={item.text} disablePadding>
-            <ListItemButton
-              component={RouterLink}
-              to={item.path}
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                {item.icon}
-              </ListItemIcon>
-              <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </>
-  );
-
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        sx={{
+      <AppBar 
+        position="fixed" 
+        sx={{ 
           zIndex: theme.zIndex.drawer + 1,
-          transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-          }),
-          ...(open && {
-            marginLeft: drawerWidth,
-            width: `calc(100% - ${drawerWidth}px)`,
-            transition: theme.transitions.create(['width', 'margin'], {
-              easing: theme.transitions.easing.sharp,
-              duration: theme.transitions.duration.enteringScreen,
-            }),
-          }),
+          backgroundColor: '#1a202c',
         }}
       >
-        <Toolbar>
+        <Toolbar sx={{ height: '70px' }}>
           <IconButton
-            edge="start"
             color="inherit"
             aria-label="open drawer"
+            edge="start"
             onClick={toggleDrawer}
-            sx={{
-              marginRight: '36px',
-              ...(open && { display: 'none' }),
-            }}
+            sx={{ mr: 2, display: { sm: 'block', md: isMobile ? 'block' : 'none' } }}
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            component="h1"
-            variant="h6"
-            color="inherit"
-            noWrap
-            sx={{ flexGrow: 1 }}
-          >
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             StudyBuddy AI Assistant
           </Typography>
-          <Tooltip title="Notifications">
-            <IconButton color="inherit">
-              <NotificationsIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Account">
-            <IconButton color="inherit">
-              <AccountIcon />
-            </IconButton>
-          </Tooltip>
         </Toolbar>
       </AppBar>
+      
       <Drawer
         variant={isMobile ? "temporary" : "permanent"}
-        open={open}
+        open={drawerOpen}
         onClose={isMobile ? toggleDrawer : undefined}
         sx={{
           width: drawerWidth,
@@ -170,44 +86,68 @@ function MainLayout() {
           [`& .MuiDrawer-paper`]: {
             width: drawerWidth,
             boxSizing: 'border-box',
-            ...(isMobile ? {} : {
-              whiteSpace: 'nowrap',
-              overflowX: 'hidden',
-              transition: theme.transitions.create('width', {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.enteringScreen,
-              }),
-              ...(!open && {
-                overflowX: 'hidden',
-                transition: theme.transitions.create('width', {
-                  easing: theme.transitions.easing.sharp,
-                  duration: theme.transitions.duration.leavingScreen,
-                }),
-                width: theme.spacing(7),
-                [theme.breakpoints.up('sm')]: {
-                  width: theme.spacing(9),
-                },
-              }),
-            }),
+            borderRight: '1px solid rgba(0, 0, 0, 0.08)',
+            backgroundColor: '#ffffff',
           },
         }}
       >
-        {drawerContent}
+        <Toolbar sx={{ height: '70px' }} />
+        <Box sx={{ overflow: 'auto', p: 2 }}>
+          <Typography 
+            variant="h6" 
+            sx={{ 
+              fontWeight: 'bold', 
+              mb: 3, 
+              color: '#1a202c',
+              pl: 1,
+            }}
+          >
+            Menu
+          </Typography>
+          <List>
+            {navItems.map((item) => (
+              <ListItem key={item.text} disablePadding sx={{ mb: 1 }}>
+                <ListItemButton
+                  component={RouterLink}
+                  to={item.path}
+                  sx={{
+                    borderRadius: '8px',
+                    py: 1.2,
+                    '&:hover': {
+                      backgroundColor: 'rgba(132, 192, 238, 0.1)',
+                    },
+                  }}
+                >
+                  <ListItemIcon sx={{ color: '#84c0ee', minWidth: '40px' }}>
+                    {item.icon}
+                  </ListItemIcon>
+                  <ListItemText 
+                    primary={item.text} 
+                    primaryTypographyProps={{ 
+                      fontWeight: 500,
+                      fontSize: '1rem',
+                    }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+          <Divider sx={{ my: 2 }} />
+        </Box>
       </Drawer>
+      
       <Box
         component="main"
         sx={{
-          backgroundColor: (theme) =>
-            theme.palette.mode === 'light'
-              ? theme.palette.grey[100]
-              : theme.palette.grey[900],
           flexGrow: 1,
-          height: '100vh',
-          overflow: 'auto',
-          pt: '64px', // Height of AppBar
+          p: 3,
+          width: { sm: `calc(100% - ${drawerOpen ? drawerWidth : 0}px)` },
+          minHeight: '100vh',
+          backgroundColor: '#f7fafc',
+          pt: '90px', // Increased padding-top to avoid content being under AppBar
         }}
       >
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Container maxWidth="lg" sx={{ mb: 4 }}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/chat" element={<ChatPage />} />

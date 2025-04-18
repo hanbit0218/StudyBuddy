@@ -16,17 +16,6 @@ import {
   OpenInNew as OpenInNewIcon
 } from '@mui/icons-material';
 
-/**
- * ResourceCard component for displaying study resources
- * 
- * @param {Object} props - Component props
- * @param {string} props.title - Resource title
- * @param {string} props.description - Resource description
- * @param {string} props.type - Resource type ('article', 'video', 'exercises', etc.)
- * @param {string} props.url - Resource URL
- * @param {string} props.imageUrl - Resource image URL
- * @param {Function} props.onSave - Function to call when saving the resource
- */
 function ResourceCard({ 
   title, 
   description, 
@@ -53,55 +42,88 @@ function ResourceCard({
   const getTypeColor = () => {
     switch (type) {
       case 'article':
-        return 'primary';
+        return '#84c0ee';
       case 'video':
-        return 'error';
+        return '#f56565';
       case 'exercises':
-        return 'success';
+        return '#68d391';
       default:
-        return 'default';
+        return '#a0aec0';
     }
   };
 
   return (
-    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <Card sx={{ 
+      height: '100%', 
+      display: 'flex', 
+      flexDirection: 'column', 
+      borderRadius: 2,
+      overflow: 'hidden',
+      transition: 'transform 0.2s, box-shadow 0.2s',
+      '&:hover': {
+        transform: 'translateY(-4px)',
+        boxShadow: '0 10px 20px rgba(0,0,0,0.1)'
+      }
+    }}>
       {imageUrl && (
         <CardMedia
           component="img"
-          height="140"
+          height="180"
           image={imageUrl}
           alt={title}
         />
       )}
-      <CardContent sx={{ flexGrow: 1 }}>
+      <CardContent sx={{ flexGrow: 1, p: 3 }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
-          <Typography variant="h6" component="div">
+          <Typography variant="h6" component="div" sx={{ fontWeight: 600, color: '#1a202c' }}>
             {title}
           </Typography>
           <Chip 
             icon={getTypeIcon()}
             label={type.charAt(0).toUpperCase() + type.slice(1)}
-            color={getTypeColor()}
-            size="small"
+            sx={{ 
+              backgroundColor: getTypeColor(),
+              color: '#ffffff',
+              fontWeight: 500,
+              ml: 1
+            }}
+            size="medium"
           />
         </Box>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" sx={{ color: '#4a5568', fontSize: '0.95rem', lineHeight: 1.6 }}>
           {description}
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions sx={{ p: 2, pt: 0 }}>
         <Button 
-          size="small" 
+          variant="contained"
+          size="medium" 
           endIcon={<OpenInNewIcon />}
           href={url}
           target="_blank"
           rel="noopener noreferrer"
+          sx={{ 
+            backgroundColor: '#84c0ee',
+            '&:hover': {
+              backgroundColor: '#63a9de'
+            }
+          }}
         >
           Open Resource
         </Button>
         <Button 
-          size="small"
+          variant="outlined"
+          size="medium"
           onClick={onSave}
+          sx={{ 
+            ml: 1, 
+            borderColor: '#909fb5',
+            color: '#909fb5',
+            '&:hover': {
+              borderColor: '#7b8a9a',
+              backgroundColor: 'rgba(144, 159, 181, 0.05)'
+            }
+          }}
         >
           Save
         </Button>

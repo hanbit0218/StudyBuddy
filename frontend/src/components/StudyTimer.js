@@ -2,34 +2,19 @@ import React, { useState, useEffect, useCallback } from 'react';
 import {
   Box,
   Typography,
-  Button,
   CircularProgress,
   Paper,
-  Stack,
-  Divider,
   IconButton,
-  Tooltip
+  Tooltip,
+  Divider
 } from '@mui/material';
 import {
   PlayArrow as PlayIcon,
   Pause as PauseIcon,
   Replay as ResetIcon,
   FastForward as SkipIcon,
-  Settings as SettingsIcon
 } from '@mui/icons-material';
 
-/**
- * StudyTimer component implementing the Pomodoro Technique
- * 
- * @param {Object} props - Component props
- * @param {number} props.studyMinutes - Study interval in minutes (default: 25)
- * @param {number} props.breakMinutes - Break interval in minutes (default: 5)
- * @param {number} props.longBreakMinutes - Long break interval in minutes (default: 15)
- * @param {number} props.longBreakAfter - Number of study intervals before a long break (default: 4)
- * @param {Function} props.onComplete - Function called when a timer completes
- * @param {Function} props.onStudyStart - Function called when study session starts
- * @param {Function} props.onBreakStart - Function called when break starts
- */
 function StudyTimer({
   studyMinutes = 25,
   breakMinutes = 5,
@@ -113,12 +98,8 @@ function StudyTimer({
     return () => clearInterval(timer);
   }, [isRunning, timeLeft, isStudyMode, onComplete, switchMode]);
 
-  // Start/pause timer
-  const toggleTimer = () => {
-    setIsRunning(prev => !prev);
-  };
-
-  // Reset current timer
+  // Timer controls
+  const toggleTimer = () => setIsRunning(prev => !prev);
   const resetTimer = () => {
     setIsRunning(false);
     if (isStudyMode) {
@@ -128,32 +109,55 @@ function StudyTimer({
     }
     setProgress(100);
   };
-
-  // Skip to next timer
   const skipTimer = () => {
     setIsRunning(false);
     switchMode();
   };
 
-  // Get color based on mode
-  const getColor = () => {
-    return isStudyMode ? 'primary' : 'secondary';
+  // Timer colors
+  const timerColors = {
+    study: {
+      main: '#84c0ee',
+      light: 'rgba(132, 192, 238, 0.1)',
+      text: '#1a202c'
+    },
+    break: {
+      main: '#909fb5',
+      light: 'rgba(144, 159, 181, 0.1)',
+      text: '#1a202c'
+    }
   };
+  
+  const currentColor = isStudyMode ? timerColors.study : timerColors.break;
 
   return (
-    <Paper elevation={3} sx={{ p: 3, width: '100%' }}>
-      <Stack spacing={2} alignItems="center">
-        <Typography variant="h5" align="center" gutterBottom>
+    <Paper 
+      elevation={0} 
+      sx={{ 
+        p: 4, 
+        width: '100%', 
+        borderRadius: 3,
+        backgroundColor: currentColor.light,
+        border: `1px solid ${currentColor.main}`
+      }}
+    >
+      <Box sx={{ textAlign: 'center' }}>
+        <Typography 
+          variant="h5" 
+          align="center" 
+          gutterBottom
+          sx={{ fontWeight: 600, color: currentColor.text, mb: 3 }}
+        >
           {isStudyMode ? 'Study Session' : 'Break Time'}
         </Typography>
         
-        <Box position="relative" display="inline-flex" sx={{ my: 2 }}>
+        <Box position="relative" display="inline-flex" sx={{ my: 3 }}>
           <CircularProgress
             variant="determinate"
             value={progress}
-            size={120}
-            thickness={4}
-            color={getColor()}
+            size={160}
+            thickness={5}
+            sx={{ color: currentColor.main }}
           />
           <Box
             sx={{
@@ -167,63 +171,81 @@ function StudyTimer({
               justifyContent: 'center',
             }}
           >
-            <Typography variant="h4" component="div" color="text.primary">
+            <Typography variant="h3" component="div" sx={{ fontWeight: 700, color: currentColor.text }}>
               {formatTime(timeLeft)}
             </Typography>
           </Box>
         </Box>
         
-        <Stack direction="row" spacing={2}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3, mb: 3 }}>
           <Tooltip title={isRunning ? "Pause" : "Start"}>
             <IconButton 
-              color={getColor()} 
+              sx={{ 
+                mx: 1.5, 
+                backgroundColor: currentColor.main, 
+                color: '#ffffff',
+                '&:hover': {
+                  backgroundColor: isStudyMode ? '#63a9de' : '#7b8a9a',
+                },
+                width: 60,
+                height: 60,
+              }}
               onClick={toggleTimer}
-              size="large"
             >
-              {isRunning ? <PauseIcon /> : <PlayIcon />}
+              {isRunning ? <PauseIcon fontSize="large" /> : <PlayIcon fontSize="large" />}
             </IconButton>
           </Tooltip>
           
           <Tooltip title="Reset">
             <IconButton 
-              color="default" 
+              sx={{ 
+                mx: 1.5, 
+                backgroundColor: 'rgba(0, 0, 0, 0.05)', 
+                color: '#1a202c',
+                '&:hover': {
+                  backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                },
+                width: 60,
+                height: 60,
+              }}
               onClick={resetTimer}
-              size="large"
             >
-              <ResetIcon />
+              <ResetIcon fontSize="large" />
             </IconButton>
           </Tooltip>
           
           <Tooltip title="Skip">
             <IconButton 
-              color="default" 
+              sx={{ 
+                mx: 1.5, 
+                backgroundColor: 'rgba(0, 0, 0, 0.05)', 
+                color: '#1a202c',
+                '&:hover': {
+                  backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                },
+                width: 60,
+                height: 60,
+              }}
               onClick={skipTimer}
-              size="large"
             >
-              <SkipIcon />
+              <SkipIcon fontSize="large" />
             </IconButton>
           </Tooltip>
-        </Stack>
+        </Box>
         
-        <Divider flexItem sx={{ my: 1 }} />
+        <Divider sx={{ my: 3 }} />
         
-        <Typography variant="body2" color="text.secondary" align="center">
+        <Typography variant="body1" sx={{ color: currentColor.text, mb: 1 }}>
           {isStudyMode 
             ? `Focus on your work. Break in ${formatTime(timeLeft)}.` 
             : `Take a break. Next study session in ${formatTime(timeLeft)}.`
           }
         </Typography>
         
-        <Typography variant="caption" color="text.secondary" align="center">
+        <Typography variant="body2" sx={{ color: 'rgba(26, 32, 44, 0.6)' }}>
           Completed intervals: {completedIntervals}
         </Typography>
-        
-        <Tooltip title="Settings">
-          <IconButton size="small" color="default">
-            <SettingsIcon fontSize="small" />
-          </IconButton>
-        </Tooltip>
-      </Stack>
+      </Box>
     </Paper>
   );
 }
