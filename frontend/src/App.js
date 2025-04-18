@@ -3,6 +3,8 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { BrowserRouter } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
+import { StudyProvider } from './context/StudyContext';
+import { ChatProvider } from './context/ChatContext';
 
 // Create a custom theme
 const theme = createTheme({
@@ -39,7 +41,11 @@ function App() {
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <MainLayout />
+        <StudyProvider>
+          <ChatProvider>
+            <MainLayout />
+          </ChatProvider>
+        </StudyProvider>
       </ThemeProvider>
     </BrowserRouter>
   );

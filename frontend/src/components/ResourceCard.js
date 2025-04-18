@@ -35,6 +35,7 @@ function ResourceCard({
   imageUrl, 
   onSave = () => {} 
 }) {
+  // Get the appropriate icon based on resource type
   const getTypeIcon = () => {
     switch (type) {
       case 'article':
@@ -48,6 +49,7 @@ function ResourceCard({
     }
   };
 
+  // Get the color for the resource type chip
   const getTypeColor = () => {
     switch (type) {
       case 'article':

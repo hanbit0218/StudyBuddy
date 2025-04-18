@@ -39,33 +39,40 @@ function StudyTimer({
   onStudyStart = () => {},
   onBreakStart = () => {}
 }) {
+  // Timer states
   const [timeLeft, setTimeLeft] = useState(studyMinutes * 60); // Time in seconds
   const [isRunning, setIsRunning] = useState(false);
   const [isStudyMode, setIsStudyMode] = useState(true);
   const [completedIntervals, setCompletedIntervals] = useState(0);
   const [progress, setProgress] = useState(100);
 
+  // Format seconds to MM:SS
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
     const secs = (seconds % 60).toString().padStart(2, '0');
     return `${mins}:${secs}`;
   };
 
+  // Calculate which break to use (regular or long)
   const calculateBreakTime = useCallback(() => {
+    // If we've completed enough intervals for a long break
     if ((completedIntervals + 1) % longBreakAfter === 0) {
       return longBreakMinutes * 60;
     }
     return breakMinutes * 60;
   }, [completedIntervals, breakMinutes, longBreakMinutes, longBreakAfter]);
 
+  // Switch between study and break modes
   const switchMode = useCallback(() => {
     if (isStudyMode) {
+      // Switching to break
       const breakTime = calculateBreakTime();
       setTimeLeft(breakTime);
       setIsStudyMode(false);
       setCompletedIntervals(prev => prev + 1);
       onBreakStart(breakTime === longBreakMinutes * 60);
     } else {
+      // Switching to study
       setTimeLeft(studyMinutes * 60);
       setIsStudyMode(true);
       onStudyStart();
@@ -80,6 +87,7 @@ function StudyTimer({
     onStudyStart
   ]);
 
+  // Calculate timer progress percentage
   useEffect(() => {
     const totalTime = isStudyMode 
       ? studyMinutes * 60 
@@ -87,6 +95,7 @@ function StudyTimer({
     setProgress((timeLeft / totalTime) * 100);
   }, [timeLeft, isStudyMode, studyMinutes, calculateBreakTime]);
 
+  // Timer logic
   useEffect(() => {
     let timer;
 
@@ -95,6 +104,7 @@ function StudyTimer({
         setTimeLeft(prev => prev - 1);
       }, 1000);
     } else if (isRunning && timeLeft === 0) {
+      // Timer completed
       setIsRunning(false);
       onComplete(isStudyMode);
       switchMode();
@@ -103,10 +113,12 @@ function StudyTimer({
     return () => clearInterval(timer);
   }, [isRunning, timeLeft, isStudyMode, onComplete, switchMode]);
 
+  // Start/pause timer
   const toggleTimer = () => {
     setIsRunning(prev => !prev);
   };
 
+  // Reset current timer
   const resetTimer = () => {
     setIsRunning(false);
     if (isStudyMode) {
@@ -117,11 +129,13 @@ function StudyTimer({
     setProgress(100);
   };
 
+  // Skip to next timer
   const skipTimer = () => {
     setIsRunning(false);
     switchMode();
   };
 
+  // Get color based on mode
   const getColor = () => {
     return isStudyMode ? 'primary' : 'secondary';
   };
